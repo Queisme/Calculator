@@ -17,7 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background: linear-gradient(to bottom, #2e2e2e, #000000 );
+    background: linear-gradient(to bottom, #3d3d3d, #000000 );
     color: rgb(48, 48, 48);
 }
 
@@ -25,17 +25,19 @@ body {
     border: 1px solid #222222;
     padding: 20px;
     border-radius: 10px;
+    border: none;
     background: transparent;
-    box-shadow: 3px 3px 15px rgba(48, 48, 48, 0.5);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
 input {
-    width: 300px;
+    width: 290px;
     padding: 25px;
     margin: 10px;
-    border: 1px solid whitesmoke;
+    border: none;
+    border-radius: 15px;
     background: transparent;
-    box-shadow: 3px 3px 15px rgba(63, 63, 63, 0.5);
+    box-shadow: 3px 3px 15px rgba(17, 17, 17, 0.5);
     font-size: 40px;
     text-align: right;
 }
@@ -53,19 +55,24 @@ button {
     background: transparent;
     color: rgb(230, 230, 230);
     font-size: 20px;
-    box-shadow: 3px 3px 15px rgba(43, 43, 43, 0.9);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.9);
     cursor: pointer;
 }
 
 .equalBtn{
     width: 134px;
     border-radius: 50px;
-    background-color: #025206;
+    background-color: #004603;
 }
 
-.ceBtn,
-.acBtn {
+.backBtn,
+.delBtn {
     width: 95px;
+    font-size: 13px;
     border-radius: 50px;
-    background-color: rgb(105, 39, 0);
+    background-color: rgb(105, 0, 0);
+}
+
+.operator {
+    background-color:rgb(151, 86, 0);
 }
