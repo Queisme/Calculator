@@ -30,20 +30,29 @@ body {
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
-input {
-    width: 290px;
-    padding: 25px;
+.output {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 20px;
     margin: 10px;
     border: none;
-    border-radius: 15px;
+    border-radius:15px;
     background: transparent;
-    box-shadow: 3px 3px 15px rgba(17, 17, 17, 0.5);
-    font-size: 40px;
-    text-align: right;
+    box-shadow: 3px 3px 15px rgba(10, 10, 10, 0.5);
+    word-wrap:break-word;
+    word-break: break-all;
 }
 
-input::placeholder {
-    color:whitesmoke;
+.output .previous{
+    color: rgb(184, 184, 184);
+    font-size: 20px;
+}
+
+.output .current{
+    color:white;
+    font-size: 40px;
 }
 
 button {
@@ -59,14 +68,21 @@ button {
     cursor: pointer;
 }
 
-.equalBtn{
+#backBtn:hover,
+#delBtn:hover,
+#equalBtn:hover,
+button:hover {
+    background-color: rgba(148, 148, 148, 0.1);
+}
+
+#equalBtn{
     width: 134px;
     border-radius: 50px;
     background-color: #004603;
 }
 
-.backBtn,
-.delBtn {
+#backBtn,
+#delBtn {
     width: 95px;
     font-size: 13px;
     border-radius: 50px;
