@@ -8,13 +8,20 @@
 
 // typing "equals" will perform a final calculation and show the result
 
+
 const add = ((a, b) => a + b);
 const subtract = ((a, b) => a - b);
 const multiply = ((a, b) => a * b);
 const division = ((a, b) => a / b);
 
-const numbers = document.querySelectorAll('.number')
-const operators = document.querySelectorAll('.operator')
-const equalsBtn = document.getElementById('#equalBtn')
-const delBtn = document.getElementById('#delBtn')
-const backBtn = document.getElementById('#backBtn')
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
+const equalsBtn = document.getElementById('#equalBtn');
+const delBtn = document.getElementById('#delBtn');
+const backBtn = document.getElementById('#backBtn');
+const previous = document.querySelector('.previous');
+const current = document.querySelector('.current');
+const display = document.querySelector('#display');
+
+
+
