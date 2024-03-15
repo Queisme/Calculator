@@ -30,7 +30,7 @@ body {
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
-.output {
+.output { 
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
