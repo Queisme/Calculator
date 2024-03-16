@@ -1,13 +1,3 @@
-// needs to show zero; intentionally or while waiting
-
-// typing a number enters "number building" mode and will display the current number(s)
-
-// typing an operator "+" means we're entering a new number(s). 
-
-// Need to remember the operator to perform function for later
-
-// typing "equals" will perform a final calculation and show the result
-
 //calculator actions
 const add = ((a, b) => a + b);
 const subtract = ((a, b) => a - b);
@@ -26,13 +16,6 @@ let operator;
 
 const buttonArray = [...buttons];
 
-//add event listners to buttons and send 'em to be sorted
-function startCal() {
-    buttonArray.forEach(button => {
-        button.addEventListener('click', () => sortEm(button.innerText))
-    });
-};
-
 //sort 'em by NaN - true or false - & display numbers
 function sortEm(sortBy) {
     if (!isNaN(sortBy) || (sortBy === '.')) {
@@ -48,16 +31,21 @@ function nottaNumber(sortBy) {
     if ((sortBy) === 'Delete') {
         list = '0';
         total = '0';
+        operator;
     } else if ((sortBy) === 'Backspace') {
-        list = list.substring(0, list.length - 1);
+        if (list.length === 1) {
+            list = '0';
+        } else {
+            list = list.substring(0, list.length - 1);
+        }
     } else if ((sortBy) === '=') {
         if (operator === null) {
             return;
         }
         mathUp(Number(list));
-        // operator = null;
+        operator = null;
         // list = total;
-        // total = 0;
+        total = 0;
     } else {
         rackEm(sortBy);
     };
@@ -76,29 +64,40 @@ function rackEm(sortBy) {
         mathUp(intList);
     }
     operator = sortBy;
-    list = total;
-}
-
-function mathUp(intList) {
-    if (operator === '+') {
-        add(intList, total);
-    } else if (operator === '−') {
-        subtract(intList, total);
-    } else if (operator === '×') {
-        multiply(intList, total);
-    } else if (operator === '÷') {
-        division(intList, total);
-    };
-    console.log(intList)
-    console.log(total)
+    list = '0';
 };
 
-function issaNumber(nums) {
-    if (list === '0') {
-        list = nums;
-    } else {
-        list += nums;
+//mathing
+function mathUp(intList) {
+    if (operator === '+') {
+       add(total, intList);
+    } else if (operator === '−') {
+       subtract(total, intList);
+    } else if (operator === '×') {
+       multiply(total, intList);
+    } else if (operator === '÷') {
+       division(total, intList);
     };
+    console.log(total);
+    console.log(intList);
+    console.log(add(total, intList))
+};
+
+
+//1 ah ah ah, 2 ah ah ah, 3 ah ah ah
+function issaNumber(count) {
+    if (list === '0') {
+        list = count;
+    } else {
+        list += count;
+    };
+};
+
+//add event listners to buttons and send 'em to be sorted
+function startCal() {
+    buttonArray.forEach(button => {
+        button.addEventListener('click', () => sortEm(button.innerText))
+    });
 };
 
 startCal();
