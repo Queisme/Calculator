@@ -30,7 +30,7 @@ body {
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
 }
 
-.output { 
+.display { 
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
@@ -40,20 +40,12 @@ body {
     height: 130px;
     border: none;
     border-radius:15px;
+    color:white;
+    font-size: 40px;
     background: transparent;
     box-shadow: 3px 3px 15px rgba(10, 10, 10, 0.5);
     word-wrap:break-word;
     word-break: break-all;
-}
-
-.output .previous{
-    color: rgb(184, 184, 184);
-    font-size: 20px;
-}
-
-.output .current{
-    color:white;
-    font-size: 40px;
 }
 
 button {

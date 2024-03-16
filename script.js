@@ -8,88 +8,97 @@
 
 // typing "equals" will perform a final calculation and show the result
 
-
+//calculator actions
 const add = ((a, b) => a + b);
 const subtract = ((a, b) => a - b);
 const multiply = ((a, b) => a * b);
 const division = ((a, b) => a / b);
 
-const previous = document.querySelector('.previous');
-const current = document.querySelector('.current');
+//display
+const display = document.querySelector('.display');
 
-let currentNum = '';
+//all buttons
+const buttons = document.querySelectorAll('button');
+
 let list = '0';
-let previousNum = '';
+let total = 0;
+let operator;
 
-startUp();
+const buttonArray = [...buttons];
 
-console.log(document.querySelector('.current'))
-
-function startUp(e) {
-    document.querySelectorAll('.number')
-    document.querySelectorAll('.operator')
-    document.querySelector('.other')
-        .addEventListener('click', isNumber);
+//add event listners to buttons and send 'em to be sorted
+function startCal() {
+    buttonArray.forEach(button => {
+        button.addEventListener('click', () => sortEm(button.innerText))
+    });
 };
-    current.innerText = list;
 
-
-function buttonClick(value) {
-    if (isNaN(value)) {
-        notNumber(value);
+//sort 'em by NaN - true or false - & display numbers
+function sortEm(sortBy) {
+    if (!isNaN(sortBy) || (sortBy === '.')) {
+        issaNumber(sortBy);
     } else {
-        isNumber(value)
-    };
-    current.innerText = list;
-};
+        nottaNumber(sortBy);
+    }
+    display.innerText = list;
+}
 
-function notNumber(value) {
-    switch (e) {
-        case 'Delete':
-            list = '0';
-            currentNum = '0';
-            previousNum.display.hidden
-            break;
-        case 'Backspace':
-            if (list.length === 1) {
-                list = '0';
-            } else {
-                list = list.substring(0, list.length - 1);
-            }
-            break;
-        case '&equals;':
-            if (currentNum || previousNum === null) {
-                return list;
-            }
-            totalUp(Number(list));
-            previousNum = null;
-            list = currentNum;
-            currentNum = 0;
-            break;
-        case '&plus;':
-        case '&minus;':
-        case '&times;':
-        case '&divide;':
-            totalUp();
-            break;
+//not numbers sorted further
+function nottaNumber(sortBy) {
+    if ((sortBy) === 'Delete') {
+        list = '0';
+        total = '0';
+    } else if ((sortBy) === 'Backspace') {
+        list = list.substring(0, list.length - 1);
+    } else if ((sortBy) === '=') {
+        if (operator === null) {
+            return;
+        }
+        mathUp(Number(list));
+        // operator = null;
+        // list = total;
+        // total = 0;
+    } else {
+        rackEm(sortBy);
     };
 };
 
-function totalUp(list) {
-    if (value === '&plus;') {
-        add(previousNum,list);
-    } else if (value === '&minus;') {
-        subtract(previousNum,list);
-    } else if (value === '&times;') {
-        multiply(previousNum,list);
-    } else if (value === '&divide;') {
-        division(previousNum,list);
-    };
+//make strings numbers & setting up math
+function rackEm(sortBy) {
+    if (list === '0') {
+        return;
+    }
+    const intList = Number(list);
     
+    if (total === 0) {
+        total = intList;
+    } else {
+        mathUp(intList);
+    }
+    operator = sortBy;
+    list = total;
+}
+
+function mathUp(intList) {
+    if (operator === '+') {
+        add(intList, total);
+    } else if (operator === '−') {
+        subtract(intList, total);
+    } else if (operator === '×') {
+        multiply(intList, total);
+    } else if (operator === '÷') {
+        division(intList, total);
+    };
+    console.log(intList)
+    console.log(total)
 };
 
-
-function isNumber(nums) {
-    list += nums;
-    current.innerText = list;
+function issaNumber(nums) {
+    if (list === '0') {
+        list = nums;
+    } else {
+        list += nums;
+    };
 };
+
+startCal();
