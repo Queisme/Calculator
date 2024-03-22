@@ -9,95 +9,81 @@ const display = document.querySelector('.display');
 
 //all buttons
 const buttons = document.querySelectorAll('button');
-
-let list = '0';
-let total = 0;
-let operator;
-
 const buttonArray = [...buttons];
 
-//sort 'em by NaN - true or false - & display numbers
-function sortEm(sortBy) {
-    if (!isNaN(sortBy) || (sortBy === '.')) {
-        issaNumber(sortBy);
-    } else {
-        nottaNumber(sortBy);
-    }
-    display.innerText = list;
-}
+let next;
+let symbol;
+let operator;
+let newStr = '';
+let intActive = 0;
+let runningTotal;
 
-//not numbers sorted further
-function nottaNumber(sortBy) {
-    if ((sortBy) === 'Delete') {
-        list = '0';
-        total = '0';
-        operator;
-    } else if ((sortBy) === 'Backspace') {
-        if (list.length === 1) {
-            list = '0';
-        } else {
-            list = list.substring(0, list.length - 1);
-        }
-    } else if ((sortBy) === '=') {
-        if (operator === null) {
-            return;
-        }
-        mathUp(Number(list));
-        operator = null;
-        // list = total;
-        total = 0;
-    } else {
-        rackEm(sortBy);
-    };
+powerUp();
+//adding event listeners to all buttons
+function powerUp() {
+    buttonArray.forEach(button => {
+        button.addEventListener('click', () => sortEm(button.innerText))
+    })
+    display.innerText = intActive;
 };
 
-//make strings numbers & setting up math
-function rackEm(sortBy) {
-    if (list === '0') {
-        return;
-    }
-    const intList = Number(list);
-    
-    if (total === 0) {
-        total = intList;
+//sorting buttons by what is a number and what isn't
+function sortEm(sortBy) {
+    if (!isNaN(sortBy) || (sortBy === '.')) {
+        intActive += sortBy;
+        issaNumber(intActive);
     } else {
-        mathUp(intList);
+        symbol = sortBy;
+        nottaNumber(symbol);
     }
-    operator = sortBy;
-    list = '0';
+};
+
+//number string turned into a number
+function issaNumber(intActive) {
+    if (intActive === '0') {
+        return 0;
+    } else {
+        intActive = Number(intActive);
+        mathUp(intActive);
+    }
+    display.innerText = intActive;
+};
+
+//sorting symbols from operators
+function nottaNumber(symbol) {
+    if ((symbol) === 'Delete') {
+        intActive = 0;
+        next = 0;
+        operator = undefined;
+        display.innerText = intActive;
+    } else if ((symbol) === '=') {
+        if (operator === undefined) {
+            return;
+        } else {
+            display.innerText = runningTotal;
+        }
+    } else if ((symbol === 'Backspace')) {
+        newStr = Math.floor(intActive / 10);
+        display.innerText = newStr;
+        intActive = Number(newStr);
+    } else {
+        operator = symbol;
+        next = Number(intActive);
+        display.innerText = next;
+        intActive = 0;
+    }
 };
 
 //mathing
-function mathUp(intList) {
+function mathUp(intActive) {
     if (operator === '+') {
-       add(total, intList);
+        runningTotal = add(next, intActive);
     } else if (operator === '−') {
-       subtract(total, intList);
+        runningTotal = subtract(next, intActive);
     } else if (operator === '×') {
-       multiply(total, intList);
+        runningTotal = multiply(next, intActive);
     } else if (operator === '÷') {
-       division(total, intList);
+        runningTotal = division(next, intActive);
     };
-    console.log(total);
-    console.log(intList);
-    console.log(add(total, intList))
+    display.innerText = runningTotal;
 };
-
-
-//1 ah ah ah, 2 ah ah ah, 3 ah ah ah
-function issaNumber(count) {
-    if (list === '0') {
-        list = count;
-    } else {
-        list += count;
-    };
-};
-
-//add event listners to buttons and send 'em to be sorted
-function startCal() {
-    buttonArray.forEach(button => {
-        button.addEventListener('click', () => sortEm(button.innerText))
-    });
-};
-
-startCal();
