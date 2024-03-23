@@ -11,11 +11,11 @@ const display = document.querySelector('.display');
 const buttons = document.querySelectorAll('button');
 const buttonArray = [...buttons];
 
-let next;
 let symbol;
+let next = 0;
 let operator;
+let active = 0;
 let newStr = '';
-let intActive = 0;
 let runningTotal;
 
 powerUp();
@@ -24,14 +24,14 @@ function powerUp() {
     buttonArray.forEach(button => {
         button.addEventListener('click', () => sortEm(button.innerText))
     })
-    display.innerText = intActive;
+    display.innerText = active;
 };
 
 //sorting buttons by what is a number and what isn't
 function sortEm(sortBy) {
     if (!isNaN(sortBy) || (sortBy === '.')) {
-        intActive += sortBy;
-        issaNumber(intActive);
+        active += sortBy;
+        issaNumber(active);
     } else {
         symbol = sortBy;
         nottaNumber(symbol);
@@ -39,23 +39,23 @@ function sortEm(sortBy) {
 };
 
 //number string turned into a number
-function issaNumber(intActive) {
-    if (intActive === '0') {
+function issaNumber(active) {
+    if (active === '0') {
         return 0;
     } else {
-        intActive = Number(intActive);
-        mathUp(intActive);
+        active = Number(active);
+        mathUp(active);
     }
-    display.innerText = intActive;
+    display.innerText = active;
 };
 
 //sorting symbols from operators
 function nottaNumber(symbol) {
     if ((symbol) === 'Delete') {
-        intActive = 0;
+        active = 0;
         next = 0;
         operator = undefined;
-        display.innerText = intActive;
+        display.innerText = active;
     } else if ((symbol) === '=') {
         if (operator === undefined) {
             return;
@@ -63,27 +63,28 @@ function nottaNumber(symbol) {
             display.innerText = runningTotal;
         }
     } else if ((symbol === 'Backspace')) {
-        newStr = Math.floor(intActive / 10);
+        newStr = Math.floor(active / 10);
         display.innerText = newStr;
-        intActive = Number(newStr);
+        active = Number(newStr);
+        
     } else {
         operator = symbol;
-        next = Number(intActive);
+        active = Number(active);
+        next = active;
         display.innerText = next;
-        intActive = 0;
+        active = 0;
     }
 };
 
 //mathing
-function mathUp(intActive) {
+function mathUp(active) {
     if (operator === '+') {
-        runningTotal = add(next, intActive);
+        runningTotal = add(next, active);
     } else if (operator === '−') {
-        runningTotal = subtract(next, intActive);
+        runningTotal = subtract(next, active);
     } else if (operator === '×') {
-        runningTotal = multiply(next, intActive);
+        runningTotal = multiply(next, active);
     } else if (operator === '÷') {
-        runningTotal = division(next, intActive);
+        runningTotal = division(next, active);
     };
-    display.innerText = runningTotal;
 };
