@@ -43,7 +43,7 @@ function issaNumber(active) {
   if (active === '0') {
     return 0;
   } else {
-    active = Number(active);
+    active = +active;
     mathUp(active);
   }
   display.innerText = active;
@@ -66,10 +66,10 @@ function nottaNumber(symbol) {
   } else if (symbol === 'Backspace') {
     newStr = Math.floor(active / 10);
     display.innerText = newStr;
-    active = Number(newStr);
+    active = +newStr;
   } else {
     operator = symbol;
-    active = Number(active);
+    active = +active;
     next = active;
     active = 0;
     display.innerText = next;
